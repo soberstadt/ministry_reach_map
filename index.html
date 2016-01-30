@@ -21,15 +21,19 @@
 <style>
     #map {
         display: inline-block;
-        width: 80%;
+        width: 75%;
         height: 100%;
+
       }
 
 #Campus_Info {
     display: inline-block;
-    width: 19%;
+    width: 23%;
     height: 100%;
-    Background: white;
+    background: red;
+    text-indent: 10px;
+
+
 }
       .page-content {
 
@@ -72,21 +76,27 @@
               });
               marker.addListener('click', function () {
                 var campus = this.campus
-                $('#Campus_Info').html('<div><strong>' + campus.name + '</strong><br><br>' + campus.activities + "<br>" +
-                        'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
-                        + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
+                var activitieshtml = '';
+                if(campus.infobase_info.activities){
+                      for(x=0; x<campus.infobase_info.activities.length; x++){
+                          activitieshtml += campus.infobase_info.activities[x].name + '<br>';
+                      }
+                }
+                      $('#Campus_Info').html('<div><strong>' + campus.name + '</strong><br><br>' + activitieshtml + "<br>" + 'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                              + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
                 infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
                 infowindowclick.open(map, this);
                 infowindowhover.close();
               });
               marker.addListener('mouseover', function () {
                 var campus = this.campus
-                infowindowhover.setContent(campus.name);
+                infowindowhover.setContent('<div><strong>' + campus.name + '</strong>');
                 infowindowhover.open(map, marker);
               });
             })
           })
         });
+
       }
       google.maps.event.addDomListener(window, 'load', initialize);
 
