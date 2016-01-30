@@ -36,10 +36,24 @@
           center: new google.maps.LatLng(34.0667, -118.0833),
           zoom: 10,
           mapTypeId: google.maps.MapTypeId.ROADMAP
+
+
         }
         var map = new google.maps.Map(mapCanvas, mapOptions)
+
+        $.getJSON( "https://infobase-stage.cru.org/api/v1/govt_scorecard.json", function( data ){ 
+          $.each( data.govt_scorecard, function(key, val) {
+                var marker = new google.maps.Marker( {
+                  position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE) } ,
+
+                  map: map,
+                  title: val.name
+                })
+          })
+        })
       }
       google.maps.event.addDomListener(window, 'load', initialize);
+
     </script>
 </head>
 
