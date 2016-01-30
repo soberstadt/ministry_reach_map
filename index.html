@@ -47,44 +47,32 @@
           content: "hover window"
         })
 
+        $.getJSON('https://infobase-stage.cru.org/api/v1/target_areas?filters[state]=CA', function(data){
+          console.log(data.target_areas.length)
+        });
+
         $.getJSON( "https://infobase-stage.cru.org/api/v1/govt_scorecard.json", function( data ){ 
           $.each( data.govt_scorecard, function(key, val) {
-                var marker = new google.maps.Marker( {
-                  position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE) } ,
+            var marker = new google.maps.Marker( {
+              position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE) } ,
 
-                  map: map,
-                  title: val.name,
-                  campus: val
-                })
-                marker.addListener('click', function(a,b,c) {
-                                   var campus = this.campus
-                                infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' +
-                                                           'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
-                                                           + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
-                                   infowindowclick.open(map, this);
-                                   infowindowhover.close();
-                                   
-
-                 // <!DOCTYPE html>
-                 // <title>Page Title</title>
-                  // <h1>This is a heading</h>
-                  // <p>This is a paragraph</p>
-                 // google.maps.event.addListener(marker, 'click', function() {
-        // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-        //   'Place ID: ' + place.place_id + '<br>' +
-        //   place.formatted_address + '</div>');
-        // infowindow.open(map, this);
-
-
-                  
-                  //infowindowclick.setContent(campus.name)
-                  //infowindowclick.open(map, marker);
-                })
-                marker.addListener('mouseover', function(a,b,c) {
-                  var campus = this.campus
-                  infowindowhover.setContent(campus.name)
-                  infowindowhover.open(map, marker);
-                })
+              map: map,
+              title: val.name,
+              campus: val
+            });
+            marker.addListener('click', function(a,b,c) {
+              var campus = this.campus
+              infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' +
+                                         'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                                         + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
+              infowindowclick.open(map, this);
+              infowindowhover.close();ck.open(map, marker);
+            });
+            marker.addListener('mouseover', function(a,b,c) {
+              var campus = this.campus
+              infowindowhover.setContent(campus.name);
+              infowindowhover.open(map, marker);
+            });
           })
         })
       }
