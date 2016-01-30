@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8">
 
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
+  <title>Cru Campus Info Finder</title>
+  <meta name="description" content="Campus Info Finder">
   <meta name="author" content="SitePoint">
 
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -18,10 +18,18 @@
 
 
 <style>
-      #map {
-        width: 100%;
+    #map {
+        display: inline-block;
+        width: 80%;
         height: 100%;
       }
+
+#Campus_Info {
+    display: inline-block;
+    width: 19%;
+    height: 100%;
+    Background: white;
+}
       .page-content {
 
         height : 90vh;
@@ -70,10 +78,9 @@
             });
             marker.addListener('mouseover', function(a,b,c) {
               var campus = this.campus
-              infowindowhover.setContent(campus.name);
+              infowindowhover.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
               infowindowhover.open(map, marker);
-            });
-          })
+            });          })
         })
       }
       google.maps.event.addDomListener(window, 'load', initialize);
@@ -87,7 +94,7 @@
     <header class="mdl-layout__header">
       <div class="mdl-layout__header-row">
         <!-- Title -->
-        <span class="mdl-layout-title">Title</span>
+        <span class="mdl-layout-title">Campus Info Finder</span>
         <!-- Add spacer, to align navigation to the right -->
         <div class="mdl-layout-spacer"></div>
         <!-- Navigation. We hide it in small screens. -->
@@ -95,6 +102,10 @@
     </header>
     <main class="mdl-layout__content">
       <div class="page-content">
+          <div id="Campus_Info">
+              
+          
+          </div>
         <div id="map"></div>
 
       </div>
