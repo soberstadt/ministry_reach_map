@@ -59,7 +59,7 @@
           console.log(data.target_areas.length)
         });
 
-        $.getJSON( "https://infobase-stage.cru.org/api/v1/govt_scorecard.json", function( data ){ 
+        $.getJSON( "https://infobase-stage.cru.org/api/v1/govt_scorecard.json", function( data ){
           $.each( data.govt_scorecard, function(key, val) {
             var marker = new google.maps.Marker( {
               position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE) } ,
@@ -70,9 +70,10 @@
             });
             marker.addListener('click', function(a,b,c) {
               var campus = this.campus
-              infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' +
+              $('#Campus_Info').html('<div><strong>' + campus.name + '</strong><br><br>' + campus.activities + "<br>"
                                          'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
                                          + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
+              infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
               infowindowclick.open(map, this);
               infowindowhover.close();ck.open(map, marker);
             });
@@ -103,8 +104,8 @@
     <main class="mdl-layout__content">
       <div class="page-content">
           <div id="Campus_Info">
-              
-          
+
+
           </div>
         <div id="map"></div>
 
