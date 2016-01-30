@@ -40,6 +40,12 @@
 
         }
         var map = new google.maps.Map(mapCanvas, mapOptions)
+        var infowindowclick = new google.maps.InfoWindow({
+          content: "testWindow"
+        })
+        var infowindowhover = new google.maps.InfoWindow({
+          content: "hover window"
+        })
 
         $.getJSON( "https://infobase-stage.cru.org/api/v1/govt_scorecard.json", function( data ){ 
           $.each( data.govt_scorecard, function(key, val) {
@@ -47,7 +53,30 @@
                   position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE) } ,
 
                   map: map,
-                  title: val.name
+                  title: val.name,
+                  campus: val
+                })
+                marker.addListener('click', function(a,b,c) {
+
+                 // <!DOCTYPE html>
+                 // <title>Page Title</title>
+                  // <h1>This is a heading</h>
+                  // <p>This is a paragraph</p>
+                 // google.maps.event.addListener(marker, 'click', function() {
+        // infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+        //   'Place ID: ' + place.place_id + '<br>' +
+        //   place.formatted_address + '</div>');
+        // infowindow.open(map, this);
+
+
+                  var campus = this.campus
+                  infowindowclick.setContent(campus.name)
+                  infowindowclick.open(map, marker);
+                })
+                marker.addListener('mouseover', function(a,b,c) {
+                  var campus = this.campus
+                  infowindowhover.setContent(campus.name)
+                  infowindowhover.open(map, marker);
                 })
           })
         })
