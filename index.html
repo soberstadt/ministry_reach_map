@@ -57,6 +57,13 @@
                   campus: val
                 })
                 marker.addListener('click', function(a,b,c) {
+                                   var campus = this.campus
+                                infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' +
+                                                           'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                                                           + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
+                                   infowindowclick.open(map, this);
+                                   infowindowhover.close();
+                                   
 
                  // <!DOCTYPE html>
                  // <title>Page Title</title>
@@ -69,9 +76,9 @@
         // infowindow.open(map, this);
 
 
-                  var campus = this.campus
-                  infowindowclick.setContent(campus.name)
-                  infowindowclick.open(map, marker);
+                  
+                  //infowindowclick.setContent(campus.name)
+                  //infowindowclick.open(map, marker);
                 })
                 marker.addListener('mouseover', function(a,b,c) {
                   var campus = this.campus
