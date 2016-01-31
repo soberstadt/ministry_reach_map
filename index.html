@@ -29,16 +29,15 @@
 #Campus_Info {
     display: inline-block;
     width: 23%;
-    height: 100%;
+    height: 98%;
     background: white;
     margin-left: 10px;
-
 
 }
       .page-content {
 
         height : 90vh;
-        width: 100%;
+        width : 100%;
       }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js"></script>
@@ -86,15 +85,15 @@
                 var activitieshtml = '';
                 if(campus.infobase_info && campus.infobase_info.activities){
                       for(x=0; x<campus.infobase_info.activities.length; x++){
-                          activitieshtml += 'Strategy: ' + campus.infobase_info.activities[x].name + '<br>' +
-                                              'Status: ' + campus.infobase_info.activities[x].status + '<br>';
+                          activitieshtml +=  '<font size="4">' + campus.infobase_info.activities[x].name + '</font>' + '<br>' +
+                                              '<strong>Status:</strong> ' + campus.infobase_info.activities[x].status + '<br>';
                                                   if(campus.infobase_info.activities[x].contacts && campus.infobase_info.activities[x].contacts.length > 0){
-                                                    activitieshtml += 'Contact: ' + campus.infobase_info.activities[x].contacts[0].firstName + ' ' + campus.infobase_info.activities[x].contacts[0].lastName + '<br>';
+                                                    activitieshtml += '<strong>Contact:</strong> ' + campus.infobase_info.activities[x].contacts[0].firstName + ' ' + campus.infobase_info.activities[x].contacts[0].lastName + '<br>';
                                                 }
                                                 activitieshtml += '<br>';
                       }
                 }
-                      $('#Campus_Info').html('<div><strong>' + campus.name + '</strong><br><br>' + activitieshtml + "<br>" + 'Enrollment: ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                      $('#Campus_Info').html('<div><strong><font size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml + "<br>" + '<strong>Enrollment:</strong> ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
                               + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
                 infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
                 infowindowclick.open(map, this);
@@ -129,11 +128,9 @@
     </header>
     <main class="mdl-layout__content">
       <div class="page-content">
-          <div id="Campus_Info">
+          <div id="Campus_Info"></div>
 
-
-          </div>
-        <div id="map"></div>
+            <div id="map"></div>
 
       </div>
     </main>
