@@ -19,26 +19,27 @@
 
 
 <style>
-    #map {
-        display: inline-block;
-        width: 75%;
-        height: 100%;
-        float: right;
 
-      }
-
-#Campus_Info {
+    /* Box on left of screen for holding information */
+    #Campus_Info {
+    float: left;
     display: inline-block;
-    width: 23%;
+    width: 280px;
     height: 98%;
     background: white;
-    margin-top: 10px;
     margin-left: 10px;
 
-}
-      .page-content {
+    }
 
-        height : 90vh;
+    #map {
+        display: flex;
+        width: auto;
+        height: 100%;
+
+    }
+
+      .page-content {
+        height : 98vh;
         width : 100%;
       }
     </style>
@@ -74,30 +75,45 @@
               if(val.LATITUDE == undefined) {
                 return;
               }
-              var marker = new google.maps.Marker({
 
-                position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE)},
+                var marker = new google.maps.Marker({
 
-                map: map,
-                title: val.name,
-                campus: val
-              });
+                  position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE)},
+
+                  map: map,
+                  title: val.name,
+                  campus: val
+
+                });
+
+              //Sets the shape of the marker to a small circle if no Cru presence
+              if (!val.infobase_info || !val.infobase_info.activities)
+                  marker.setIcon('https://storage.googleapis.com/support-kms-prod/SNP_2752125_en_v0')
+
+
               marker.addListener('click', function () {
                 var campus = this.campus
                 var activitieshtml = '';
+
+                //  If a marker is clicked, display information in left box
                 if(campus.infobase_info && campus.infobase_info.activities){
                       for(x=0; x<campus.infobase_info.activities.length; x++){
                           activitieshtml +=  '<font face="Times New Roman" size="4">' + campus.infobase_info.activities[x].name + '</font>' + '<br>' +
                                               '<strong>Status:</strong> ' + campus.infobase_info.activities[x].status + '<br>';
-                                                  if(campus.infobase_info.activities[x].contacts && campus.infobase_info.activities[x].contacts.length > 0){
+                                                if(campus.infobase_info.activities[x].contacts && campus.infobase_info.activities[x].contacts.length > 0){
                                                     activitieshtml += '<strong>Contact:</strong> ' + campus.infobase_info.activities[x].contacts[0].firstName + ' ' + campus.infobase_info.activities[x].contacts[0].lastName + '<br>';
                                                 }
                                                 activitieshtml += '<br>';
                       }
                 }
-                      $('#Campus_Info').html('<div><strong><font face="Arial" size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml + "<br>" + '<strong>Enrollment:</strong> ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
-                              + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
-                infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
+
+                $('#Campus_Info').html('<img src="/Users/George/Documents/ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">'
+                      + '<div><br><strong><font face="Arial" size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml);
+
+                infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + 'Enrollment: '
+                            + campus.UGDS + '<br>Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                                + '% <br>Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: '
+                                    + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
                 infowindowclick.open(map, this);
                 infowindowhover.close();
               });
@@ -118,19 +134,11 @@
 
 
 <body>
-  <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <header class="mdl-layout__header">
-      <div class="mdl-layout__header-row">
-        <!-- Title -->
-        <span class="mdl-layout-title">Campus Info Finder</span>
-        <!-- Add spacer, to align navigation to the right -->
-        <div class="mdl-layout-spacer"></div>
-        <!-- Navigation. We hide it in small screens. -->
-      </div>
-    </header>
+  <div class="mdl-layout mdl-js-layout mdl-layoutfixed-header">
+
     <main class="mdl-layout__content">
       <div class="page-content">
-          <div id="Campus_Info"></div>
+          <div id="Campus_Info"><img src="/Users/George/Documents/ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; float:left; margin-left:40px;"></div>
 
             <div id="map"></div>
 
