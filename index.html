@@ -28,6 +28,7 @@
     height: 98%;
     background: white;
     margin-left: 10px;
+    margin-right: 10px;
 
     }
 
@@ -88,7 +89,7 @@
 
               //Sets the shape of the marker to a small circle if no Cru presence
               if (!val.infobase_info || !val.infobase_info.activities )
-                  marker.setIcon('https://storage.googleapis.com/support-kms-prod/SNP_2752125_en_v0')
+                  marker.setIcon('Dot.png')
 
               marker.addListener('click', function () {
                 var campus = this.campus
@@ -138,7 +139,10 @@
     <main class="mdl-layout__content">
       <div class="page-content">
           <!-- Inserts Cru Logo during page initialization -->
-          <div id="Campus_Info"><img src="cru_logo_screen.jpg" style="width:175px;height:125px; float:left; margin-left:40px;"></div>
+          <div id="Campus_Info"><img src="cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">
+                <br><br><strong><font face="Arial" size="4"> Click on a Marker to see Cru Activity and Contact Information </font></strong>
+
+          </div>
 
             <div id="map"></div>
 
