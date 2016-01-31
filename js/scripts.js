@@ -1,3 +1,5 @@
+window.infobase_path = 'https://infobase-stage.cru.org/';
+
 var show_gov_db_results = function (data) {
   var infowindowclick = new google.maps.InfoWindow({
     content: "Error filling click panel"
@@ -38,8 +40,12 @@ var show_gov_db_results = function (data) {
       if(campus.infobase_info && campus.infobase_info.activities){
         activitieshtml = getActiviesSummaryHTML(campus.infobase_info);
       }
+      else {
+        activitieshtml = '<p><a href="' + infobase_path + 'locations/search_results?namecity=' + campus.name +
+                         '">Search for this campus on the Infobase</a><p>'
+      }
       //Adds Cru logo and any Cru information to put into left box
-      $('#campus_info--content').html('<div><br><strong><font face="Arial" size="4">' + campus.name +
+      $('#campus_info--content').html('<strong><font face="Arial" size="4">' + campus.name +
                                       '</font></strong><br><br>' + activitieshtml);
 
       infowindowclick.setContent(campusInfoWindow(campus));
@@ -60,30 +66,31 @@ function getActiviesSummaryHTML(infobase_campus) {
   var html = '';
   for(x = 0; x < infobase_campus.activities.length; x++){
     var activity = infobase_campus.activities[x];
-    html += '<font face="Times New Roman" size="4">' + activity.name +
-            '</font><br><strong>Status:</strong> ' + activity.status + '<br>';
+
+    html += '<p>' +
+              '<font face="Times New Roman" size="4">' + activity.name + '</font><br>' +
+              '<strong>Status:</strong> ' + activity.status + '<br>';
+
     if(activity.contacts && activity.contacts.length > 0){
       var contact = activity.contacts[0];
       html += '<strong>Contact:</strong> ' + contact.firstName + ' ' + contact.lastName + '<br>';
     }
-    html += '<br>';
+
+    html += '</p>';
   }
+  html += '<p><a href="' + infobase_path + 'locations/' + infobase_campus.id + '">Visit on infobase</a></p>';
   return html;
 }
 
 function campusInfoWindow(campus) {
-  return '<div>' +
-            '<strong>' + campus.name + '</strong><br>' +
-              'Enrollment: ' + campus.UGDS + '<br>' +
-              'Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2) + '% <br>' +
-              'Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> ' +
-              'Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% ' +
-        '</div>'
+  return '<strong>' + campus.name + '</strong><br>' +
+         'Enrollment: ' + campus.UGDS + '<br>' +
+         'Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2) + '% <br>' +
+         'Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> ' +
+         'Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% '
 }
 
 function initialize() {
-  var infobase_path = 'https://infobase-stage.cru.org/';
-
   var mapCanvas = document.getElementById('map');
   var mapOptions = {
     center: new google.maps.LatLng(34.0667, -118.0833),
@@ -96,6 +103,5 @@ function initialize() {
     window.infobase_campuses = data.target_areas;
     $.getJSON(infobase_path + "api/v1/govt_scorecard.json" + window.location.search, show_gov_db_results)
   });
-
 }
 google.maps.event.addDomListener(window, 'load', initialize);
