@@ -87,9 +87,8 @@
                 });
 
               //Sets the shape of the marker to a small circle if no Cru presence
-              if (!val.infobase_info || !val.infobase_info.activities)
+              if (!val.infobase_info || !val.infobase_info.activities )
                   marker.setIcon('https://storage.googleapis.com/support-kms-prod/SNP_2752125_en_v0')
-
 
               marker.addListener('click', function () {
                 var campus = this.campus
@@ -107,7 +106,7 @@
                       }
                 }
 
-                $('#Campus_Info').html('ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">'
+                $('#Campus_Info').html('<img src="/Users/George/Documents/ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">'
                       + '<div><br><strong><font face="Arial" size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml);
 
                 infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + 'Enrollment: '
