@@ -17,6 +17,10 @@
   display: flex;
   width: auto;
   height: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+
 }
 
 .page-content {
@@ -26,7 +30,7 @@
 
 #cru_logo {
   height:125px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .loader {

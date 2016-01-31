@@ -45,18 +45,43 @@ var show_gov_db_results = function (data) {
                          '">Search for this campus on the Infobase</a><p>'
       }
       //Adds Cru logo and any Cru information to put into left box
-      $('#campus_info--content').html('<strong><font face="Arial" size="4">' + campus.name +
-                                      '</font></strong><br><br>' + activitieshtml);
+      $('#campus_info--content').html('<center><font face="Arial" size="3">' + campus.name +
+                                      '</font></center><br>' + activitieshtml);
 
-      infowindowclick.setContent(campusInfoWindow(campus));
-      infowindowclick.open(map, this);
-      infowindowhover.close();
+      //Toggle switch for infowindowclick
+      //if clicked-on window is already open when the marker is clicked
+      if(this == infowindowclick.anchor && infowindowclick.getMap()){
+          //close window
+          infowindowclick.close();
+          //clears left window
+          $('#campus_info--content').html('');
+
+          //optional, brings back hover window
+          //infowindowhover.setContent(campus.name);
+          //infowindowhover.open(map, this);
+        }
+      else{
+          infowindowclick.setContent(campusInfoWindow(campus));
+
+          infowindowclick.open(map, this);
+          infowindowhover.close();
+      }
+
     });
 
     marker.addListener('mouseover', function () {
       var campus = this.campus;
-      infowindowhover.setContent('<strong>' + campus.name + '</strong>');
-      infowindowhover.open(map, marker);
+
+      //brings up window if marker's clickedon window is not open
+      //if clickedon window is open, close hover window
+      if(this == infowindowclick.anchor && infowindowclick.getMap()){
+        infowindowhover.close();
+      }
+      else{
+        infowindowhover.setContent(campus.name);
+        infowindowhover.open(map, marker);
+      }
+
     });
   });
   $('.loader').hide();
@@ -68,7 +93,7 @@ function getActiviesSummaryHTML(infobase_campus) {
     var activity = infobase_campus.activities[x];
 
     html += '<p>' +
-              '<font face="Times New Roman" size="4">' + activity.name + '</font><br>' +
+              '<font face="Arial" size="3">' + activity.name + '</font><br>' +
               '<strong>Status:</strong> ' + activity.status + '<br>';
 
     if(activity.contacts && activity.contacts.length > 0){
@@ -83,11 +108,11 @@ function getActiviesSummaryHTML(infobase_campus) {
 }
 
 function campusInfoWindow(campus) {
-  return '<strong>' + campus.name + '</strong><br>' +
-         'Enrollment: ' + campus.UGDS + '<br>' +
-         'Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2) + '% <br>' +
-         'Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> ' +
-         'Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% '
+  return '<font size="3">' + campus.name + '</font><br>' +
+         '<strong>Enrollment: </strong>' + campus.UGDS + '<br>' +
+         '<strong>Latino: </strong>' + (campus.UGDS_HISP * 100.0).toFixed(2) + '% <br>' +
+         '<strong>Asian: </strong>' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> ' +
+         '<strong>Black: </strong>' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% '
 }
 
 function initialize() {
