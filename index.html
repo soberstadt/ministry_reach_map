@@ -66,6 +66,13 @@
           $.getJSON("https://infobase-stage.cru.org/api/v1/govt_scorecard.json" + window.location.search, function (data) {
             $.each(data.govt_scorecard, function (key, val) {
               val.infobase_info = _.find(window.infobase_campuses, {name: val.name});
+              if(!val.LATITUDE && val.infobase_info) {
+                val.LATITUDE = val.infobase_info.latitude;
+                val.LONGITUDE = val.infobase_info.longitude;
+              }
+              if(val.LATITUDE == undefined) {
+                return;
+              }
               var marker = new google.maps.Marker({
 
                 position: {lat: Number(val.LATITUDE), lng: Number(val.LONGITUDE)},
