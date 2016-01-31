@@ -87,7 +87,7 @@
                 var activitieshtml = '';
                 if(campus.infobase_info && campus.infobase_info.activities){
                       for(x=0; x<campus.infobase_info.activities.length; x++){
-                          activitieshtml +=  '<font size="4">' + campus.infobase_info.activities[x].name + '</font>' + '<br>' +
+                          activitieshtml +=  '<font face="Times New Roman" size="4">' + campus.infobase_info.activities[x].name + '</font>' + '<br>' +
                                               '<strong>Status:</strong> ' + campus.infobase_info.activities[x].status + '<br>';
                                                   if(campus.infobase_info.activities[x].contacts && campus.infobase_info.activities[x].contacts.length > 0){
                                                     activitieshtml += '<strong>Contact:</strong> ' + campus.infobase_info.activities[x].contacts[0].firstName + ' ' + campus.infobase_info.activities[x].contacts[0].lastName + '<br>';
@@ -95,7 +95,7 @@
                                                 activitieshtml += '<br>';
                       }
                 }
-                      $('#Campus_Info').html('<div><strong><font size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml + "<br>" + '<strong>Enrollment:</strong> ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
+                      $('#Campus_Info').html('<div><strong><font face="Arial" size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml + "<br>" + '<strong>Enrollment:</strong> ' + campus.UGDS + '<br> Latino: ' + (campus.UGDS_HISP * 100.0).toFixed(2)
                               + '% <br> Asian: ' + (campus.UGDS_ASIAN * 100.0).toFixed(2) + '% <br> Black: ' + (campus.UGDS_BLACK * 100.0).toFixed(2) + '% </div>');
                 infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + '');
                 infowindowclick.open(map, this);
