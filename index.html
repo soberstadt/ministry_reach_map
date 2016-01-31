@@ -105,8 +105,8 @@
                                                 activitieshtml += '<br>';
                       }
                 }
-
-                $('#Campus_Info').html('<img src="/Users/George/Documents/ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">'
+                //Adds Cru logo and any Cru information to put into left box
+                $('#Campus_Info').html('<img src="cru_logo_screen.jpg" style="width:175px;height:125px; margin-left:40px;">'
                       + '<div><br><strong><font face="Arial" size="4">' + campus.name + '</font></strong><br><br>' + activitieshtml);
 
                 infowindowclick.setContent('<div><strong>' + campus.name + '</strong><br>' + 'Enrollment: '
@@ -137,7 +137,8 @@
 
     <main class="mdl-layout__content">
       <div class="page-content">
-          <div id="Campus_Info"><img src="/Users/George/Documents/ministry_reach_map/cru_logo_screen.jpg" style="width:175px;height:125px; float:left; margin-left:40px;"></div>
+          <!-- Inserts Cru Logo during page initialization -->
+          <div id="Campus_Info"><img src="cru_logo_screen.jpg" style="width:175px;height:125px; float:left; margin-left:40px;"></div>
 
             <div id="map"></div>
 
