@@ -1,0 +1,36 @@
+/* Box on left of screen for holding information */
+#Campus_Info {
+  float: left;
+  display: inline-block;
+  width: 280px;
+  height: 98%;
+  background: white;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#map {
+  display: flex;
+  width: auto;
+  height: 100%;
+}
+
+.page-content {
+  height : 98vh;
+  width : 100%;
+}
+
+#cru_logo {
+  width:175px;
+  height:125px;
+  margin-left:40px;
+}
+
+.loader {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  background: gray;
+  border: 1px solid #444;
+  padding: 8px 16px;
+}
